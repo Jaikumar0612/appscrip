@@ -1,0 +1,14 @@
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid for larger screens */
+    gap: 15px;
+    flex: 1;
+  }
+  
+  /* Mobile styles */
+  @media (max-width: 768px) { /* Adjust this value as needed */
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr); /* Two items per row for mobile */
+    }
+  }
+  
