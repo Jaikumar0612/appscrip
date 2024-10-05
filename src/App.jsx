@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaSearch, FaHeart, FaStore, FaUserCircle, FaGlobe, FaBars } from 'react-icons/fa'; // Add FaBars for the hamburger icon
+import { FaSearch, FaHeart, FaStore, FaUserCircle, FaGlobe, FaBars } from 'react-icons/fa';
 import ProductGrid from './pages/ProductGrid';
 import Sidebar from './pages/Sidebar';
 import Footer from './pages/Footer';
@@ -7,11 +7,10 @@ import './App.css';
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar toggle state
-  const [isMobileView, setIsMobileView] = useState(false); // Mobile or Desktop view state
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // State for mobile navigation menu
+  const [sidebarOpen, setSidebarOpen] = useState(false); 
+  const [isMobileView, setIsMobileView] = useState(false); 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); 
 
-  // Fetch products data from API
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then((res) => res.json())
@@ -19,7 +18,6 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
-  // Check if the screen is mobile or desktop view
   useEffect(() => {
     const checkMobileView = () => {
       setIsMobileView(window.innerWidth <= 768);
@@ -33,24 +31,21 @@ function App() {
     };
   }, []);
 
-  // Toggle sidebar visibility in mobile view
   const toggleSidebar = () => {
     if (isMobileView) {
-      setSidebarOpen(!sidebarOpen); // Toggle sidebar state
+      setSidebarOpen(!sidebarOpen); 
     }
   };
 
-  // Toggle mobile menu visibility
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
   return (
     <div className="App">
-      {/* Header Section */}
+      
       <header className="header">
         <div className="hamburger-logo-container">
-          {/* Hamburger icon for mobile view */}
           {isMobileView && (
             <FaBars className="hamburger-icon" onClick={toggleMobileMenu} />
           )}
@@ -77,7 +72,6 @@ function App() {
         </div>
       </header>
 
-      {/* Mobile Navigation Menu */}
       {isMobileView && mobileMenuOpen && (
         <nav className="mobile-nav">
           <ul>
@@ -90,7 +84,6 @@ function App() {
         </nav>
       )}
 
-      {/* Desktop Navigation */}
       {!isMobileView && (
         <nav className="nav">
           <ul>
@@ -103,7 +96,19 @@ function App() {
         </nav>
       )}
 
-      {/* Mobile View Buttons */}
+      
+
+      {/* Heading placed above Sidebar and ProductGrid */}
+      <div className="center-text">
+        <h2>DISCOVER OUR PRODUCTS</h2>
+        <p>
+          Welcome to our store! Explore a wide range of exciting products designed 
+          to meet all your needs. Whether you're looking for the latest gadgets, 
+          fashion items, or home decor, we have something for everyone.
+        </p>
+      </div>
+
+
       {isMobileView && (
         <div className="mobile-buttons">
           <button onClick={toggleSidebar} className="filter-button">
@@ -113,19 +118,18 @@ function App() {
         </div>
       )}
 
-      {/* Content Area */}
-      <div className="content">
-        {/* Show sidebar in mobile view only if sidebarOpen is true */}
-        {isMobileView && sidebarOpen && <Sidebar />}
 
-        {/* Sidebar always visible in desktop view */}
+
+
+
+
+      <div className="content">
+        {isMobileView && sidebarOpen && <Sidebar />}
         {!isMobileView && <Sidebar />}
 
-        {/* Product Grid */}
         <ProductGrid products={products} />
       </div>
 
-      {/* Footer */}
       <Footer />
     </div>
   );
